@@ -1,0 +1,22 @@
+{
+    "success_alert_lbl":"Success",
+    "login_Success_lbl":"Logged in Successfully",
+    "login_Fail_lbl":"Logged in Failed",
+    "ok_lbl":"Ok",
+    "home_lbl":"Home",
+    "profile_lbl":"Profile",
+    "please_fill_mandatory_fields_lbl":"Please fill mandatory fields.. ",
+    "incomplete_info_lbl":"Incomplete information",
+    "dublicate_email":"That email address is already in use!",
+    "logout_lbl":"Log Out",
+    "do_you_want_to_logout_lbl":"Do You Want To Logout ?",
+    "no_lbl":"No",
+    "yes_lbl":"Yes",
+    "page_not_found_lbl":"Page Not Found",
+    "settings_lbl":"Settings",
+    "notification_lbl":"Notification",
+    "error_message_lbl":"Request Failed..",
+    "sync_modal":"Sync Menu",
+    "categories_lbl":"Categories",
+    "product_lbl":"Products"
+}
