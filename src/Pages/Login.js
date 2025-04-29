@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Image, ScrollView, View } from 'react-native';
 import {  _HEADER_TYPE } from '../Util/GlobalConstant';
 import Styles from '../Styles/Styles';
@@ -11,12 +11,21 @@ import ActivityLoader from './ActivityLoader';
 import { GlobalContext } from '../../App';
 import { setInitialSetUp } from '../Util/Utility';
 import { ASYNC_KEYS } from '../Util/Constants';
+import { firebase } from '@react-native-firebase/app';
+
+
 
 
 
 function Login(props) {
     const [isLoading, setIsLoading] = useState(false)
     const { setLoginStatus } = useContext(GlobalContext)
+
+    useEffect(()=>{
+        if (!firebase.apps.length) {
+            firebase.initializeApp();
+          }
+    },[])
 
 
     const Dologin = (data) => {

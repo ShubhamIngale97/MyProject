@@ -11,8 +11,8 @@ function Home(props) {
     const [isSyncModelVisible, setIsSyncModelVisible] = useState(false);
 
     useEffect(() => {
-        setIsSyncModelVisible(true)
-    }, [isSyncModelVisible])
+        setIsSyncModelVisible(true);
+    }, []);
 
     return (
         <View>
@@ -20,10 +20,12 @@ function Home(props) {
                 type={_HEADER_TYPE.HOME}
                 pagename={localized('home_lbl')}
             />
-            <View style={{
-                flex: 1
-            }}>
-                <SyncModal isSyncModelVisible={isSyncModelVisible} localized={localized} />
+            <View style={{ flex: 1 }}>
+                <SyncModal 
+                    isSyncModelVisible={isSyncModelVisible} 
+                    setIsSyncModelVisible={setIsSyncModelVisible} // Pass the setter here
+                    localized={localized} 
+                />
             </View>
         </View>
     );

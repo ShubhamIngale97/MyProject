@@ -4,8 +4,10 @@ import { GetRenderIcons } from '../Util/GlobalFunction';
 import { _SYNC_MENU } from '../Navigation/NavArray';
 import Styles from '../Styles/Styles';
 import { syncDownload } from '../Services/ApiHelper';
+import { _APP_STYLES_CONSTANTS, _GLOBAL_COLORS } from '../Styles/StylesConstants';
+import { _APP_FONT_SIZE_CONSTANTS } from '../Styles/TextStyles';
 
-const SyncModal = ({ isSyncModelVisible, localized }) => {
+const SyncModal = ({ isSyncModelVisible, setIsSyncModelVisible, localized }) => {
     
     const [syncStatuses, setSyncStatuses] = useState(
         _SYNC_MENU.reduce((acc, item) => {
@@ -14,9 +16,17 @@ const SyncModal = ({ isSyncModelVisible, localized }) => {
         }, {})
     );
 
+    const [allCompleted, setAllCompleted] = useState(false); // Track if all are completed
+
     useEffect(() => {
-        handleDownload()
-    }, [])
+        handleDownload();
+    }, []);
+
+    useEffect(() => {
+        // Check if all syncs are complete
+        const allDone = Object.values(syncStatuses).every(status => status !== 'loading');
+        setAllCompleted(allDone);
+    }, [syncStatuses]); // When syncStatuses change, check if all are completed
 
     const handleDownload = async () => {
         const downloadPromises = _SYNC_MENU.map((item) => {
@@ -35,6 +45,11 @@ const SyncModal = ({ isSyncModelVisible, localized }) => {
         });
 
         await Promise.all(downloadPromises);
+    };
+
+    const handleDone = () => {
+        // Close the modal when "Done" is clicked
+        setIsSyncModelVisible(false);
     };
 
     return (
@@ -63,6 +78,25 @@ const SyncModal = ({ isSyncModelVisible, localized }) => {
                             </View>
                         ))}
                     </ScrollView>
+                    {allCompleted && (
+                        <TouchableOpacity onPress={handleDone} style={{
+                            backgroundColor: _GLOBAL_COLORS.BUTTON_COLOR,
+                                width: '90%',
+                                height: 50,
+                                justifyContent: 'center',
+                                alignSelf: 'center',
+                                ..._APP_STYLES_CONSTANTS.BORDER_RADIUS,
+                                ..._APP_STYLES_CONSTANTS.ELEVATION,
+                        }}>
+                            <Text style={{
+                                   textAlign: 'center',
+                                    ..._APP_FONT_SIZE_CONSTANTS.BUTTON,
+                                    padding: 7,
+                                    color: _GLOBAL_COLORS.BUTTON_TEXT,
+                                    fontWeight: 'bold',
+                            }}>{localized('done')}</Text>
+                        </TouchableOpacity>
+                    )}
                 </View>
             </View>
         </Modal>

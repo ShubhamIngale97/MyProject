@@ -11,6 +11,7 @@ import PageNotFound from './src/Navigation/PageNotFound';
 import LoginNav from './src/Navigation/LoginNav';
 import DrawerNav from './src/Navigation/DrawerManager/DrawerNav';
 import CustomisableAlert from 'react-native-customisable-alert';
+import TabNav from './src/Navigation/TabNav';
 
 
 export const GlobalContext = createContext({
@@ -76,13 +77,13 @@ function App() {
                     backgroundColor: _GLOBAL_COLORS.WHITE,
                   },
                 }}>
-                {isLogin ? (
+                {!isLogin ? (
                   <Stack.Group>
                     <Stack.Screen name="LoginNav" component={LoginNav} />
                     {/* <Stack.Screen name="DrawerNav" component={DrawerNav} /> */}
                   </Stack.Group>
                 ) : (
-                  <Stack.Screen name="DrawerNav" component={DrawerNav} />
+                  <Stack.Screen name='TabNav' component={TabNav} />
                 )}
                 <Stack.Screen name="PageNotFound" component={PageNotFound} />
               </Stack.Navigator>
